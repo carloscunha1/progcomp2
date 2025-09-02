@@ -13,7 +13,7 @@ let poluicao = []
 for (let i = 0; i < 5; i++) {
   poluicao[i] = []
   for (let j = 0; j < 5; j++) {
-    poluicao[i] = parseInt(Math.random() * 500)
+    poluicao[i][j] = parseInt(Math.random() * 500)
   }
 }
 
@@ -39,7 +39,7 @@ for (let i = 0; i < 5; i++) {
     }
   }  
 }
-console.log(`O nível ${maior} ocorreu na região ${regioes[iMaior]} no dia ${doas[jMaior]}`);
+console.log(`O nível ${maior} ocorreu na região ${regioes[iMaior]} no dia ${dias[jMaior]}`);
 
 let qtdNivelCritico = 0 
 for (let i = 0; i < 5; i++) {
@@ -50,3 +50,20 @@ for (let i = 0; i < 5; i++) {
   }
 }
 console.log(`Quantidade de níveis críticos (acima de 300): ${qtdNivelCritico}`);
+
+let menorMedia = 0
+let indiceMenorMedia = -1
+
+for (let i = 0; i < 5; i++) {
+  let soma = 0
+  for (let j = 0; j < 5; j++) {
+    soma += poluicao[i][j]
+  }
+  let media = soma / 5
+  if (media < menorMedia) {
+    menorMedia = media
+    indiceMenorMedia = i
+  }
+}
+
+console.log(`A região com menor média de poluição foi ${regioes[indiceMenorMedia]} com média de ${menorMedia.toFixed(2)}`)
