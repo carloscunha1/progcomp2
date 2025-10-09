@@ -61,6 +61,33 @@ function mediaSalarial(funcionarios) {
   return divisao
 }
 
+function promoverFuncionarios(funcionarios) {
+  let somaSalarios = 0
+  for (let i = 0; i < funcionarios.length; i++) {
+    somaSalarios += funcionarios[i].salario
+  }
+  let media = somaSalarios / funcionarios.length
+
+  for (let i = 0; i < funcionarios.length; i++) {
+    if (funcionarios[i].salario < media) {
+      funcionarios[i].cargo = "Analista Junior"
+      funcionarios[i].salario *= 1.15
+    }
+  }
+  return funcionarios
+}
+
+function maiorSalario(funcionarios) {
+  let funcionarioMaiorSalario = funcionarios[0]
+  for (let i = 0; i < funcionarios.length; i++) {
+    if (funcionarios[i].salario > funcionarioMaiorSalario) {
+      funcionarioMaiorSalario = funcionarios[i]
+    }
+  }
+  return funcionarioMaiorSalario
+}
+
+
 function main() {
   let vetor = []
   cadastroInicial(vetor) //Faz o cadastro inicial
@@ -74,11 +101,13 @@ opcao = Number(prompt(
       "5 - Atualizar cargo de um funcionário\n" +
       "6 - Remover funcionário pelo nome\n" +
       "7 - Exibir média salarial da empresa\n" +
-      "8 - Encerrar o programa"
+      "8 - Promover funcionarios\n" +
+      "9 - Exibir funcionario com maior salario\n" +
+      "10 - Encerrar o programa"
     ));    
     switch (opcao) {
-      case 1:cadastraNovo(vetor);break;
-      case 2:listarNomes(vetor);break;
+      case 1:cadastraNovo(vetor);return;
+      case 2:listarNomes(vetor);return;
       case 3:console.log(aumentarSalario(vetor));return;
       case 4:let nomeBusca = prompt("Informe o nome do funcionario a ter o salario mostrado:")
               console.log(buscarSalario(vetor, nomeBusca));
@@ -86,12 +115,14 @@ opcao = Number(prompt(
       case 5:let nomeAtualiza = prompt("Informe o nome do funcionario a ter o cargo atualizado:")
              let cargo = prompt("Informe o novo cargo do funcionario:")
               console.log(atualizaCargo(vetor, nomeAtualiza, cargo));
-              break
+              return;
       case 6:let nomeRemove = prompt("Informe o nome do funcionario a ser removido:")
               console.log(removeFuncionario(vetor, nomeRemove));
-              break;
+              return;
       case 7:console.log(mediaSalarial(vetor));return;
-      case 8:alert("Programa Encerrado");break;
+      case 8:console.log(promoverFuncionarios(vetor));return;
+      case 9:console.log(maiorSalario(vetor));return;
+      case 10:alert("Programa Encerrado");return;
       default:alert("Opção Inválida");return; 
     }
   } while (opcao != 4);
