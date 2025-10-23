@@ -7,7 +7,7 @@ async function carregarUsuarios() {
 
     for (let i = 0; i < usuarios.length; i++) {
       const li = document.createElement("li");
-      li.textContent = `${usuarios[i].name} - ${usuarios[i].email}`;
+      li.textContent = `${usuarios[i].name} - ${usuarios[i].address.street} - ${usuarios[i].address.city} - ${usuarios[i].address.zipcode}`;
       lista.appendChild(li);
     }
   } catch (erro) {
