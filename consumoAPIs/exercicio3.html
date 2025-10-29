@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Exercicio de Consumo de API</title>
+  </head>
+  <body>
+    <h1>Filmes</h1>
+    <input id="nomeFilme" />
+    <button onclick="carregarPostagens()">Carregar Filme</button>
+    <ul id="filmes"></ul>
+    <script>
+      async function carregarPostagens() {
+        try {
+          const nome = document.getElementById("nomeFilme").value.trim();
+          if (!nome) {
+            alert("Digite o nome do filme");
+            return;
+          }
+
+          const resposta = await fetch(
+            `https://www.omdbapi.com/?apikey=b0ed073e&t=${nome}`);
+          const filme = await resposta.json();
+          const lista = document.getElementById("filmes");
+          lista.innerHTML = "";
+
+          if (filme.Response === "False") {
+            lista.innerHTML = `<li>${filme.Error}</li>`;
+            return;
+          }
+
+          const li = document.createElement("ul");
+          li.innerHTML = `<p><strong>Título:</strong> ${filme.Title}</p>
+                          <p><strong>Ano:</strong> ${filme.Year}</p>
+                          <p><strong>Gênero:</strong> ${filme.Genre}</p>`;
+          lista.appendChild(li);
+        } catch (erro) {
+          console.error("Erro ao carregar filme:", erro);
+          alert("Não foi possível carregar os dados da API.");
+        }
+      }
+    </script>
+  </body>
+</html>
